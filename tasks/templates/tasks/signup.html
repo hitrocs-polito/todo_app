@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="center-column" style="background-color: lightcoral;">
+
+<button class="ui green button" onclick="window.location.href='{% url 'tasks' %}';">Back</button>
+<h3 class="ui center aligned header">Sign up</h3>
+
+<form method="POST" action="">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" class="btn btn-sm btn-dark" value="Signup">
+</form>
+
+</div>
+{% endblock content %}

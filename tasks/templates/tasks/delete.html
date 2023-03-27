@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="center-column">
+
+<button class="ui green button" onclick="window.location.href='{% url 'tasks' %}';">Back</button>
+<h3 class="ui center aligned red header">Are you sure you want to delete "{{task}}"?</h3>
+
+<form method="POST" action="">
+    {% csrf_token %}
+    <input class="ui black button" type="submit" value="Confirm">
+
+</form>
+</div>
+{% endblock content %}

@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="center-column">
+    {% if request.user.is_authenticated %}
+    <h3 class="ui right aligned header"><a href="{% url 'logout' %}">Logout</a></h3>
+    {% else %}
+    <h3 class="ui right aligned header"><a href="{% url 'login' %}">Login</a></h3>
+    {% endif %}
+    <div class="ui placeholder segment" style="background-color: lightcoral;">
+        <div class="ui icon header">
+            <h3>Hello {{request.user}}</h3>
+            <h5>You have {{count}} incomplete tasks.</h5>
+        </div>
+        <button class="ui secondary  button" onclick="window.location.href='{% url 'create-task' %}';">Add task</button>
+      </div>
+
+    <div class="ui segment" style="background-color: lightcoral;">
+        <form class="ui fluid action input" method="GET">
+		{% csrf_token %}
+            <input type="text" name="search-area" value="{{search_input}}" placeholder="Search...">
+            <button class="ui secondary button">Search</button>
+        </form>
+    </div>
+
+    <div class="todo-list">
+
+    {% for task in tasks %}
+        <div class="ui segment" style="background-color: lightcoral;">
+            <a class="btn btn-sm btn-dark" href="{% url 'update-task' task.id %}">Update <i class="fa fa-refresh"></i></a>
+            <a class="btn btn-sm btn-danger" href="{% url 'delete-task' task.id %}">Delete <i class="fa fa-trash"></i></a>
+            <a class="btn btn-sm btn-info" href="{% url 'task' task.id %}">View <i class="fa fa-list"></i></a>
+            {% if task.done %}
+            <strike>{{task}}</strike>
+            {% else %}
+            <span>{{task}}</span>
+            {% endif %}
+        </div>
+    {% endfor %}
+    </div>
+</div>
+
+</div>
+{% endblock content %}
